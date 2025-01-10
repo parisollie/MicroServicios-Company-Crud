@@ -15,3 +15,17 @@ services:
       POSTGRES_PASSWORD: '123456'
     ports:
       - '5433:5432'
+  #V-38, al final lo termina borrando
+  #db-qa:
+  #  image: postgres:16.1
+  #  container_name: db-companies-qa
+  #  restart: always
+  #  volumes:
+  #    - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql
+  #    - ./sql/data.sql:/docker-entrypoint-initdb.d/data.sql
+  #  environment:
+  #    POSTGRES_DB: 'companies-qa'
+  #    POSTGRES_USER: 'paullie-qa'
+  #    POSTGRES_PASSWORD: '123456'
+  #  ports:
+  #    - '5434:5432'

@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: default
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          #Vid 44, cambia de HTTP A SSH
+          uri: git@github.com:parisollie/microservices-config.git
+          #Esto es la rama
+          default-label: main
+          clone-on-start: true
+          #username: parisollie
+          #Vid 41, variables de entorno
+          #password: ${GIT_TOKEN}
+          #Vid 43
+          ignore-local-ssh-settings: true
+          host-key-algorithm: ecdsa-sha2-nistp256
+          host-key: AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
+          private-key: |
+            -----BEGIN EC PRIVATE KEY-----
+            Proc-Type: 4,ENCRYPTED
+            DEK-Info: AES-128-CBC,513B0DD00D4290318D1B03D53006CB19
+
+            LXYKNgmAOYuUByjLwZbXjU1Vh3fN8Q6GLxMqRuQdgMz+nYiKGPuW7mGkztPKw7Ga
+            axU7vqOTuD8tGJhyeZ0x1+QKsYXigkvzI+7fzRQGAkYc3s4HqSHi32RMQXxJXl3l
+            Wm+5wCqAJgQNQem/FeccyrLBwFgeV4cA+zJatBXFJ6U=
+            -----END EC PRIVATE KEY-----
+          passphrase: 123456
+#Vid 34
+server:
+  port: 7777
+eureka:
+  instance:
+    instance-id: "${spring.application.name}:${random.value}"
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
