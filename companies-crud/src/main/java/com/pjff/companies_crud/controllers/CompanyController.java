@@ -33,6 +33,16 @@ public class CompanyController {
     // V-19
     public ResponseEntity<Company> get(@PathVariable String name) {
 
+        /*
+         * Vid 71
+         * try {
+         * Thread.sleep(5000);
+         * } catch (InterruptedException e) {
+         * // TODO Auto-generated catch block
+         * e.printStackTrace();
+         * }
+         */
+
         log.info("GET: company {}", name);
         return ResponseEntity.ok(this.companyService.readByName(name));
     }

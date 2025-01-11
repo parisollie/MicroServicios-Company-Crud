@@ -3,10 +3,12 @@ package com.pjff.report_ms.services;
 import com.pjff.report_ms.helpers.ReportHelper;
 import com.pjff.report_ms.models.Company;
 import com.pjff.report_ms.models.WebSite;
+import com.pjff.report_ms.repositories.CompaniesFallbackRepository;
 import com.pjff.report_ms.repositories.CompaniesRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-//import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
+
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,17 +25,25 @@ public class ReportServiceImpl implements ReportService {
     private final CompaniesRepository companiesRepository;
     // Vid 52
     private final ReportHelper reportHelper;
+    // Vid 71
+    private final CompaniesFallbackRepository companiesFallbackRepository;
+
+    private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
     /*
      * 
-     * private final CompaniesFallbackRepository companiesFallbackRepository;
-     * private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
      * private final ReportPublisher reportPublisher;
      */
 
     @Override
     public String makeReport(String name) {
+        // Vid 71
+        var circuitBreaker = this.circuitBreakerFactory.create("companies-circuitbreaker");
+        return circuitBreaker.run(
+                () -> this.makeReportMain(name),
+                throwable -> this.makeReportFallback(name, throwable));
         // Vid 53
-        return reportHelper.readTemplate(this.companiesRepository.getByName(name).orElseThrow());
+        // return
+        // reportHelper.readTemplate(this.companiesRepository.getByName(name).orElseThrow());
         // Vid 50
         // return this.companiesRepository.getByName(name).orElseThrow().getName();
     }
@@ -64,5 +74,15 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public void deleteReport(String name) {
         this.companiesRepository.deleteByName(name);
+    }
+
+    // Vid 71
+    private String makeReportMain(String name) {
+        return reportHelper.readTemplate(this.companiesRepository.getByName(name).orElseThrow());
+    }
+
+    private String makeReportFallback(String name, Throwable error) {
+        log.warn(error.getMessage());
+        return reportHelper.readTemplate(this.companiesFallbackRepository.getByName(name));
     }
 }
