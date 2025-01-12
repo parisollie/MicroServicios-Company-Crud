@@ -14,23 +14,23 @@ import java.util.Objects;
 
 @Service
 @Transactional
-//Trabajar con logs
+// Trabajar con logs
 @Slf4j
-//Para que nos cree un constructor con todos los argumentos.
+// Para que nos cree un constructor con todos los argumentos.
 @AllArgsConstructor
-//Vid 16
+// Vid 16
 public class CompanyServiceImpl implements CompanyService {
 
-    //Vid 18
+    // Vid 18
     private final CompanyRepository companyRepository;
+    // Vid 96
     private final Tracer tracer;
-
 
     @Override
     public Company create(Company company) {
-        //Vid 18, recorremos las compañias y sino tiene categoria le ponemos NONE
+        // Vid 18, recorremos las compañias y sino tiene categoria le ponemos NONE
         company.getWebSites().forEach(webSite -> {
-            //Si es nulo,
+            // Si es nulo,
             if (Objects.isNull(webSite.getCategory())) {
                 webSite.setCategory(Category.NONE);
             }
@@ -40,21 +40,22 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company readByName(String name) {
+        // Vid 96
         var spam = tracer.nextSpan().name("readByName");
         try (Tracer.SpanInScope spanInScope = this.tracer.withSpan(spam.start())) {
             log.info("Getting comany from DB");
         } finally {
             spam.end();
         }
-        //Vid 18
+        // Vid 18
         return this.companyRepository.findByName(name)
-                //En caso de que no encuentres nada ,lanza:
+                // En caso de que no encuentres nada ,lanza:
                 .orElseThrow(() -> new NoSuchElementException("Company not found"));
     }
 
     @Override
     public Company update(Company company, String name) {
-        //Vid 18, evaluamos que exista la compañia.
+        // Vid 18, evaluamos que exista la compañia.
         var companyToUpdate = this.companyRepository.findByName(name)
                 .orElseThrow(() -> new NoSuchElementException("Company not found"));
         companyToUpdate.setLogo(company.getLogo());

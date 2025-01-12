@@ -28,6 +28,7 @@ public class CompanyController {
     // Vid 22, ponemos el operation
     @Operation(summary = "get a company given a company name")
     @GetMapping(path = "{name}")
+    // Vid 95
     @Observed(name = "company.name")
     @Timed(value = "company.name")
     // V-19
@@ -43,16 +44,18 @@ public class CompanyController {
          * }
          */
 
+        // Vid 95
         log.info("GET: company {}", name);
         return ResponseEntity.ok(this.companyService.readByName(name));
     }
 
     @Operation(summary = "save in DB a company given a company from body")
     @PostMapping
+    // Vid 95
     @Observed(name = "company.save")
     @Timed(value = "company.save")
     public ResponseEntity<Company> post(@RequestBody Company company) {
-        log.info("Post: company {}", company.getName());
+        // log.info("Post: company {}", company.getName());
         return ResponseEntity.created(
                 URI.create(this.companyService.create(company).getName()))
                 .build();
