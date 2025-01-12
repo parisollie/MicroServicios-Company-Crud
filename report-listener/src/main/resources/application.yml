@@ -1,12 +1,9 @@
+#Vid 83
 spring:
-  #Vid 46
   application:
-    name: report-ms
+    name: report-listener
   profiles:
     default: default
-  config:
-    import: "optional:configserver:http://localhost:7777"
-  #Vid 80
   cloud:
     stream:
       kafka:
@@ -14,12 +11,18 @@ spring:
           brokers: localhost:9092
       function:
         bindings:
-          consumerReport-out-0:
+          consumerReport-in-0: # consumerReport-out ->  consumerReport <- consumerReport-in
             destination: consumerReport
+data:
+  mongodb:
+    authentication-database: admin
+    host: localhost
+    port: 27017
+    username: sa
+    password: sa
+
 server:
-  servlet:
-    context-path: /report-ms
-  port: 7070
+  port: 0
 eureka:
   instance:
     instance-id: "${spring.application.name}:${random.value}"

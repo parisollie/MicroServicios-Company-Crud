@@ -5,6 +5,8 @@ import com.pjff.report_ms.models.Company;
 import com.pjff.report_ms.models.WebSite;
 import com.pjff.report_ms.repositories.CompaniesFallbackRepository;
 import com.pjff.report_ms.repositories.CompaniesRepository;
+import com.pjff.report_ms.streams.ReportPublisher;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,12 +29,9 @@ public class ReportServiceImpl implements ReportService {
     private final ReportHelper reportHelper;
     // Vid 71
     private final CompaniesFallbackRepository companiesFallbackRepository;
-
     private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
-    /*
-     * 
-     * private final ReportPublisher reportPublisher;
-     */
+    // Vid 81
+    private final ReportPublisher reportPublisher;
 
     @Override
     public String makeReport(String name) {
@@ -65,7 +64,8 @@ public class ReportServiceImpl implements ReportService {
                 .webSites(webSites)
                 .build();
 
-        // this.reportPublisher.publishReport(report);
+        // Vid 81, add el publisher
+        this.reportPublisher.publishReport(report);
         this.companiesRepository.postByName(company);
         return "Saved";
     }
