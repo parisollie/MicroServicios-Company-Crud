@@ -1,9 +1,9 @@
 package com.pjff.companies_crud.repositories;
-
-//Vid 17
+//V-17,paso 13
 import com.pjff.companies_crud.entities.WebSite;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+//Hacemos el repositorio de web site
 public interface WebSiteRepository extends JpaRepository<WebSite, Long> {
 }
 

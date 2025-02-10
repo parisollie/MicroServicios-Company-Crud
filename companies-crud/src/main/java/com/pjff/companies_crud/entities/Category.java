@@ -1,6 +1,6 @@
 package com.pjff.companies_crud.entities;
 
-//Vid 14
+//V-14,paso 6
 public enum Category {
     SOCIAL_NETWORK,
     CLOUD_COMPUTING,
