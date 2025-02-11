@@ -1,8 +1,10 @@
 spring:
   application:
+    #V-67,Paso 7.0 ,le agregamos el fallback
     name: companies-crud-fallback
 server:
   servlet:
+    #le ponemos la misma nomenclatura.
     context-path: /companies-crud-fallback
   port: 8787
 eureka:

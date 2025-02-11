@@ -38,7 +38,7 @@ public class CompanyController {
     public ResponseEntity<Company> get(@PathVariable String name) {
 
         /*
-         * Vid 71
+         * V-71
          * try {
          * Thread.sleep(5000);
          * } catch (InterruptedException e) {

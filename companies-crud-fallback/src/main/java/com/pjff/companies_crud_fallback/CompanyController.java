@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.Collections;
 
-//Vid 67
+//V-67 ,se copia dle que ya teniamos
 @RestController
 @RequestMapping(path = "company")
 @Slf4j
@@ -26,6 +26,7 @@ public class CompanyController {
             .webSites(Collections.emptyList())
             .build();
 
+    //Copia del controlador original
     @GetMapping(path = "{name}")
     public ResponseEntity<Company> get(@PathVariable String name) {
         log.info("GET in fallback: company {}", name);

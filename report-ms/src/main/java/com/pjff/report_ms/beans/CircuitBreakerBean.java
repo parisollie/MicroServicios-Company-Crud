@@ -12,10 +12,11 @@ import java.time.Duration;
 
 @Configuration
 public class CircuitBreakerBean {
-        // Vid 72, le pone bean
+        // V-72,paso 13.0 , le pone bean
         @Bean
-        // Vid 68
+        // V-68,paso 8.0,creamos el customizer de Circuit Breaker
         public Customizer<Resilience4JCircuitBreakerFactory> globalCustomCB() {
+                //Empezamos a configurar
                 var circuitBreakerConfig = CircuitBreakerConfig
                                 .custom()
                                 .failureRateThreshold(60)

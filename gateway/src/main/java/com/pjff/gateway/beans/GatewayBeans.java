@@ -61,6 +61,7 @@ public class GatewayBeans {
 
 
     @Bean
+    //V-73,paso 14.0
     @Profile(value = "eureka-on-cb")
     public RouteLocator routeLocatorEurekaOnCB(RouteLocatorBuilder builder) {
         return builder
@@ -96,6 +97,7 @@ public class GatewayBeans {
                 .routes()
                 .route(route -> route
                         .path("/companies-crud/company/**")
+                        //V-74,Paso 16.0 el circuit breaker es un filtro
                         .filters(filter -> {
                             filter.circuitBreaker(config -> config
                                     .setName("gateway-cb")
@@ -112,8 +114,9 @@ public class GatewayBeans {
                         .uri("lb://report-ms")
                 )
                 .route(route -> route
+                        //V-73Paso 15.0
                         .path("/companies-crud-fallback/company/**")
-                        //Vid 115
+                        //V-115
                         .filters(filter -> filter.filter(this.authFilter))
                         .uri("lb://companies-crud-fallback")
                 )

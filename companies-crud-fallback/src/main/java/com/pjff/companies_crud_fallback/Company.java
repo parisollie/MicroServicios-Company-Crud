@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+//V-67 ,se copian tal cual
 @Data
 @Builder
 @NoArgsConstructor

@@ -27,7 +27,7 @@ public class ReportServiceImpl implements ReportService {
     private final CompaniesRepository companiesRepository;
     // V-52,Paso 60, inyectamos el helper
     private final ReportHelper reportHelper;
-    // V-71
+    // V-71,paso 13.0, inyectamos
     private final CompaniesFallbackRepository companiesFallbackRepository;
     private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
     // V-81
@@ -35,10 +35,11 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public String makeReport(String name) {
-        // V-71
+        // V-71,paso 14.0, le pasamos un nombre a mi circuit
         var circuitBreaker = this.circuitBreakerFactory.create("companies-circuitbreaker");
         return circuitBreaker.run(
                 () -> this.makeReportMain(name),
+                //Si falla mando a llamar a mi alternativa
                 throwable -> this.makeReportFallback(name, throwable));
         // V-53,Paso 61 le pasamos el reporte
         // return
@@ -80,11 +81,14 @@ public class ReportServiceImpl implements ReportService {
         this.companiesRepository.deleteByName(name);
     }
 
-    // Vid 71
+    /*-------------------------------------------------------------------------------*/
+
+    // V-71, paso 11.0
     private String makeReportMain(String name) {
         return reportHelper.readTemplate(this.companiesRepository.getByName(name).orElseThrow());
     }
 
+    //Paso 12.0
     private String makeReportFallback(String name, Throwable error) {
         log.warn(error.getMessage());
         return reportHelper.readTemplate(this.companiesFallbackRepository.getByName(name));
