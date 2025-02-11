@@ -28,6 +28,7 @@ public class CompanyController {
     // Vid 22, ponemos el operation
     @Operation(summary = "get a company given a company name")
     @GetMapping(path = "{name}")
+    // V-95,paso 3.9
     @Observed(name = "company.name")
     @Timed(value = "company.name")
     // V-19
@@ -49,6 +50,7 @@ public class CompanyController {
 
     @Operation(summary = "save in DB a company given a company from body")
     @PostMapping
+    // V-95
     @Observed(name = "company.save")
     @Timed(value = "company.save")
     public ResponseEntity<Company> post(@RequestBody Company company) {
