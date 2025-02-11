@@ -7,13 +7,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-// Vid 46
+// V-46,Paso 41 ,lo ponemos para configurarlo con el Eureka
 @EnableDiscoveryClient
-// Vid 48
+// V-48,paso 53, ponemos esto para que no nos cause error
 @EnableFeignClients
 public class ReportMsApplication {
 
-	// Vid 49
+	// V-49,Paso 56 para hacer pruebas
 	@Autowired
 	// private EurekaClient eurekaClient;
 

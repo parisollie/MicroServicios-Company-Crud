@@ -1,5 +1,5 @@
 spring:
-  #Vid 46
+  #V-46,paso 40 ponemos las configuraciones
   application:
     name: report-ms
   profiles:

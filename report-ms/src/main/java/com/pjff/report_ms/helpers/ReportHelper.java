@@ -10,16 +10,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//Vid 52
+//V-52,paso 58
 @Component
 @Slf4j
 public class ReportHelper {
 
+    //Paso 59, esto lo inyectamos directo de Github
     @Value("${report.template}")
     private String reportTemplate;
 
-    // Vid 53
     public String readTemplate(Company company) {
+        //Paso 60, con esto ya generamos el reporte
         return this.reportTemplate
                 .replace("{company}", company.getName())
                 .replace("{foundation_date}", company.getFoundationDate().toString())
@@ -27,9 +28,10 @@ public class ReportHelper {
                 .replace("{web_sites}", company.getWebSites().toString());
     }
 
-    // Vid 56
+    // V-56,paso 66 para extraer las palabras
+    //{Uber} was founded in {14/08/2012} by {Some Owner} the websites from this company are {uber, uber eats}
     public List<String> getPlaceholdersFromTemplate(String template) {
-        // Parteme todo lo que empiece con llave
+        // Parteme todo lo que empiece  llave
         var split = template.split("\\{");
 
         // Filtrado por streams

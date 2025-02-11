@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+//V-46, copiamos la mayoria de los archivos
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class WebSite implements Serializable {
-    // Vid 56, solo se queda con el name
+    // V-56, solo se queda con el name
     private String name;
 
 }

@@ -21,44 +21,48 @@ import java.util.stream.Stream;
 @Service
 @AllArgsConstructor
 @Slf4j
-// Vid 48
+// V-48,paso 54, implementamos de nuestra intace.
 public class ReportServiceImpl implements ReportService {
-    // Vid 48
+    // Paso 55,inyectamos
     private final CompaniesRepository companiesRepository;
-    // Vid 52
+    // V-52,Paso 60, inyectamos el helper
     private final ReportHelper reportHelper;
-    // Vid 71
+    // V-71
     private final CompaniesFallbackRepository companiesFallbackRepository;
     private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
-    // Vid 81
+    // V-81
     private final ReportPublisher reportPublisher;
 
     @Override
     public String makeReport(String name) {
-        // Vid 71
+        // V-71
         var circuitBreaker = this.circuitBreakerFactory.create("companies-circuitbreaker");
         return circuitBreaker.run(
                 () -> this.makeReportMain(name),
                 throwable -> this.makeReportFallback(name, throwable));
-        // Vid 53
+        // V-53,Paso 61 le pasamos el reporte
         // return
         // reportHelper.readTemplate(this.companiesRepository.getByName(name).orElseThrow());
-        // Vid 50
+        // V-50
         // return this.companiesRepository.getByName(name).orElseThrow().getName();
     }
 
     @Override
     public String saveReport(String report) {
-        // Vid 56
+        // V-56,paso 67,para cortar lo que queremos llevarnos
+        //{Uber} was founded in {14/08/2012} by {Some Owner} the websites from this company are {uber, uber eats}
         var format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         var placeholders = this.reportHelper.getPlaceholdersFromTemplate(report);
+        //Obtenemos todos los websites, quiero la posicion 3
         var webSites = Stream.of(placeholders.get(3))
                 .map(website -> WebSite.builder().name(website).build())
+                //Lo transfromamos en una lista finalmente
                 .toList();
 
-        // Vid 54 y vid 56
+        // V-54 y v-56, Paso 68
         var company = Company.builder()
                 .name(placeholders.get(0))
+                //Lo trasformamos en un objeto local date
                 .foundationDate(LocalDate.parse(placeholders.get(1), format))
                 .founder(placeholders.get(2))
                 .webSites(webSites)
@@ -70,7 +74,7 @@ public class ReportServiceImpl implements ReportService {
         return "Saved";
     }
 
-    // Vid 58
+    // V-58,paso 72
     @Override
     public void deleteReport(String name) {
         this.companiesRepository.deleteByName(name);

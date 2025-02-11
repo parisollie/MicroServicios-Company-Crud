@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+//V-46, copiamos la mayoria de los archivos
 @Data
-// Vid 54, le ponemos builder
+// V-54,Paso 63 le ponemos builder
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
