@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
-//Vid 35
+//V-35,paso 36, lo configuramos
 @EnableConfigServer
 @EnableDiscoveryClient
 public class ConfigServerApplication {

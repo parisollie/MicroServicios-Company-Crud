@@ -1,25 +1,32 @@
 spring:
   datasource:
-    #Vid 36 ,hace las configuraciones
+    #Paso 38,hace las configuraciones , del datasource,estas variables vienen de Git
     username: ${db.username}
     hikari:
       maximum-pool-size: ${db.maximum-pool-size}
       connection-timeout: ${db.connection-timeout}
     url: ${db.url}
+    #De esta forma ponemos las variables de entorno
+    #password:udemy
     password: ${db.password}
+  #V-28,paso 32
   application:
     name: companies-crud
-  #Vid 36, al final el qa ,lo elimina
+  #V-36, al final el qa ,lo elimina
   profiles:
+    #V-36,Paso 37 ponemos el default con el que trabajaremos,
+    #Aqui podriamos trabajar con qa
+    #default: qa
     default: default
   config:
+    #el optional para que me regrese el objeto en un optional
     import: "optional:configserver:http://localhost:7777"
     #import: "optional:configserver:${CONFIG_SERVER_HOST}"
 #V-19,Paso 28, cuando se trabaja con microservicios es necesario poner el server
 server:
   servlet:
     context-path: /companies-crud
-  #En Vid 51 , le pone 0
+  #En Vid 51 , le pone 0 que es un puerto aleatorio
   port: 8081
 logging:
   #Vid 90
@@ -33,6 +40,7 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+#Paso 33, ponemos eureka
 eureka:
   instance:
     instance-id: "${spring.application.name}:${random.value}"

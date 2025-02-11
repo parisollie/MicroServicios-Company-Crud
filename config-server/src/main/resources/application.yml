@@ -4,6 +4,7 @@ spring:
   application:
     name: config-server
   cloud:
+    #V-34, configuramos lo de git ,paso 35
     config:
       server:
         git:
@@ -11,11 +12,12 @@ spring:
           uri: git@github.com:parisollie/microservices-config.git
           #Esto es la rama
           default-label: main
+          #Clonamos el proyectto una vez que se inicialice
           clone-on-start: true
+          #V-41,Paso 39 variables de entorno
           #username: parisollie
-          #Vid 41, variables de entorno
           #password: ${GIT_TOKEN}
-          #Vid 43
+          #V-43,paso 39, configuracion de ssh
           ignore-local-ssh-settings: true
           host-key-algorithm: ecdsa-sha2-nistp256
           host-key: AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
@@ -28,8 +30,9 @@ spring:
             axU7vqOTuD8tGJhyeZ0x1+QKsYXigkvzI+7fzRQGAkYc3s4HqSHi32RMQXxJXl3l
             Wm+5wCqAJgQNQem/FeccyrLBwFgeV4cA+zJatBXFJ6U=
             -----END EC PRIVATE KEY-----
+          #V-44,ponemos el pw
           passphrase: 123456
-#Vid 34
+#V-34,paso 34
 server:
   port: 7777
 eureka:

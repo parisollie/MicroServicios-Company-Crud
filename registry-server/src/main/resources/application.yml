@@ -1,4 +1,5 @@
 spring:
+  #V-27,paso 31, hacemos las siguientes configuraciones
   application:
     name: registry-server
 server:
