@@ -19,6 +19,7 @@ spring:
 server:
   servlet:
     context-path: /report-ms
+  #Le pone puerto 0, en el V-64
   port: 7070
 eureka:
   instance:

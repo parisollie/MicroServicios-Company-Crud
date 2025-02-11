@@ -1,15 +1,16 @@
-#Vid 60
+#V-60,Paso 1.0
 spring:
   application:
     name: gateway
   profiles:
-    #Vid 114 cambia de eureka-on-cba oauth
+    #V-114 cambia de eureka-on-cba oauth
     default: oauth2
 server:
   port: 4040
 eureka:
   client:
-    #Se lo cambia a true en vid 64
+    #Se lo cambia a true en v-64
     fetch-registry: true
     service-url:
+      #Debe saber donde esta erueka
       defaultZone: http://localhost:8761/eureka/

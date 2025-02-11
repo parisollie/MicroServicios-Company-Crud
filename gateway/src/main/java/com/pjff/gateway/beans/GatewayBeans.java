@@ -11,23 +11,25 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.Set;
 
-//Vid 61
+//V-61,paso 2.0
 @Configuration
 @AllArgsConstructor
 public class GatewayBeans {
-    //Vid 114
+    //V-114
     private final AuthFilter authFilter;
-
+    //Bean para que cargue al contexto de spring
     @Bean
+    //Paso 5.0,para decir que esta apagado
     @Profile(value = "eureka-of")
-    //Vid 63,routeLocatorEurekaOff
+    //V-63,lo renombra a Off porque no depende de erueka
+    //Paso 3.0,routeLocatorEurekaOff, inyectamos
     public RouteLocator routeLocatorEurekaOff(RouteLocatorBuilder builder) {
         return builder
                 .routes()
-                //Vid 61, creamos una nueva ruta
+                //Paso 4.0 creamos una nueva ruta
                 .route(route -> route
                         //Todos los request *
-                        //VId 64 le pone **,es para permitir el post
+                        //V-64 le pone **,es para permitir el post
                         .path("/companies-crud/company/**")
                         .uri("http://localhost:8081")
                         //.uri("lb://companies-crud")
@@ -39,7 +41,7 @@ public class GatewayBeans {
                 )
                 .build();
     }
-    //Vid 63
+    //V-63,Paso 6.0 eureka on ,para cuando queramos hacer los puertos random
     @Bean
     @Profile(value = "eureka-on")
     public RouteLocator routeLocatorEurekaOn(RouteLocatorBuilder builder) {
@@ -47,7 +49,7 @@ public class GatewayBeans {
                 .routes()
                 .route(route -> route
                         .path("/companies-crud/company/**")
-                        //lb = balanceo de cargas
+                        //lb = balanceo de cargas y le ponemos el nombre del microservico
                         .uri("lb://companies-crud")
                 )
                 .route(route -> route

@@ -26,7 +26,8 @@ spring:
 server:
   servlet:
     context-path: /companies-crud
-  #En Vid 51 , le pone 0 que es un puerto aleatorio
+  #En V-51 , le pone 0 que es un puerto aleatorio
+  #En V-64, le vuelve a poner 0
   port: 8081
 logging:
   #Vid 90
