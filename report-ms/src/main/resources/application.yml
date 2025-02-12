@@ -6,15 +6,17 @@ spring:
     default: default
   config:
     import: "optional:configserver:http://localhost:7777"
-  #Vid 80
+  #V-80,paso 17.0
   cloud:
     stream:
       kafka:
         binder:
           brokers: localhost:9092
+      #Paso V-82, 21.0
       function:
         bindings:
           consumerReport-out-0:
+            #a que topico lo quiero destinar
             destination: consumerReport
 server:
   servlet:

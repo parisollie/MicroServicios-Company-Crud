@@ -4,7 +4,9 @@ spring:
     name: gateway
   profiles:
     #V-114 cambia de eureka-on-cba oauth
+     #V-114,paso 3.53
     default: oauth2
+    #default: eureka-on-cb
 server:
   port: 4040
 eureka:

@@ -30,7 +30,7 @@ public class ReportServiceImpl implements ReportService {
     // V-71,paso 13.0, inyectamos
     private final CompaniesFallbackRepository companiesFallbackRepository;
     private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
-    // V-81
+    // V-81,paso 21.0 inyectamos
     private final ReportPublisher reportPublisher;
 
     @Override
@@ -60,7 +60,7 @@ public class ReportServiceImpl implements ReportService {
                 //Lo transfromamos en una lista finalmente
                 .toList();
 
-        // V-54 y v-56, Paso 68
+        // V-54 y v-56, paso 68
         var company = Company.builder()
                 .name(placeholders.get(0))
                 //Lo trasformamos en un objeto local date
@@ -69,7 +69,7 @@ public class ReportServiceImpl implements ReportService {
                 .webSites(webSites)
                 .build();
 
-        // Vid 81, add el publisher
+        // Vid 81,paso 23.0  add el publisher
         this.reportPublisher.publishReport(report);
         this.companiesRepository.postByName(company);
         return "Saved";
