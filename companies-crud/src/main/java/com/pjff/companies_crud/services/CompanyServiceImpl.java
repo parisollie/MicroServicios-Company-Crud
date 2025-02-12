@@ -12,25 +12,28 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+//V-18,paso 15, empezamos a trabajar con este archivo.
 @Service
+// Clase para manejar la transeccional de spring
 @Transactional
 // Trabajar con logs
 @Slf4j
 // Para que nos cree un constructor con todos los argumentos.
 @AllArgsConstructor
-// Vid 16
+// V-16
 public class CompanyServiceImpl implements CompanyService {
 
-    // Vid 18
+    // Paso 16, inyectamos el repositorio.
     private final CompanyRepository companyRepository;
     // V-96,paso 3.10
     private final Tracer tracer;
 
     @Override
     public Company create(Company company) {
-        // Vid 18, recorremos las compañias y sino tiene categoria le ponemos NONE
+        /* Paso 18, recorremos las compañias y sino tiene categoria
+        le ponemos NONE por defecto */
         company.getWebSites().forEach(webSite -> {
-            // Si es nulo,
+            // Si es nulo,le ponemos la cafegoria por default None
             if (Objects.isNull(webSite.getCategory())) {
                 webSite.setCategory(Category.NONE);
             }
@@ -48,24 +51,26 @@ public class CompanyServiceImpl implements CompanyService {
         } finally {
             spam.end();
         }
-        // Vid 18
+        //Paso 17
         return this.companyRepository.findByName(name)
-                // En caso de que no encuentres nada ,lanza:
+                // En caso de que no encuentres nada ,lanza la siguiente excepcion:
                 .orElseThrow(() -> new NoSuchElementException("Company not found"));
     }
 
     @Override
     public Company update(Company company, String name) {
-        // Vid 18, evaluamos que exista la compañia.
+        // Paso 19, evaluamos que exista la compañia.
         var companyToUpdate = this.companyRepository.findByName(name)
                 .orElseThrow(() -> new NoSuchElementException("Company not found"));
         companyToUpdate.setLogo(company.getLogo());
         companyToUpdate.setFoundationDate(company.getFoundationDate());
         companyToUpdate.setFounder(company.getFounder());
+        //finalmente salvamos
         return this.companyRepository.save(companyToUpdate);
     }
 
     @Override
+    //paso 20
     public void delete(String name) {
         var companyToDelete = this.companyRepository.findByName(name)
                 .orElseThrow(() -> new NoSuchElementException("Company not found"));

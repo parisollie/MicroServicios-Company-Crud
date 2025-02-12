@@ -2,7 +2,7 @@ package com.pjff.companies_crud.services;
 
 import com.pjff.companies_crud.entities.Company;
 
-//Vid 16
+//V-16,paso 11,creamos el CRUD
 public interface CompanyService {
     //Creamos el CRUD
     Company create(Company company);

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+//V-67 ,se copian tal cual
 @Data
 @Builder
 @NoArgsConstructor

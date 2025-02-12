@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AuthServerApplication",
+            "request": "launch",
+            "mainClass": "com.pjff.auth_server.AuthServerApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-CompaniesCrudApplication<companies-crud>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

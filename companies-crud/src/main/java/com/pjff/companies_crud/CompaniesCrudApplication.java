@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-// Vid 89
+// V-28,Paso 32, ponemos el eureka
 @EnableDiscoveryClient
 public class CompaniesCrudApplication {
 
